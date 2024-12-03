@@ -1,0 +1,64 @@
+﻿@model practica.Models.Department
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Department</h1>
+
+<h4>Department</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+            <!-- Campo para el nombre del departamento -->
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Department Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter department name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Botón de envío -->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <!-- Mensaje de éxito -->
+        <div id="success-message" class="alert alert-success" style="display:none;">
+            Department created successfully!
+        </div>
+
+        <!-- Mensaje de error -->
+        <div id="error-message" class="alert alert-danger" style="display:none;">
+            An error occurred while creating the department. Please try again.
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Mostrar mensajes de éxito o error
+        document.querySelector("form").addEventListener("submit", function (event) {
+            setTimeout(function () {
+                const success = document.getElementById("success-message");
+                const error = document.getElementById("error-message");
+
+                if (document.querySelector(".alert-danger").childElementCount > 0) {
+                    error.style.display = "block";
+                } else {
+                    success.style.display = "block";
+                }
+            }, 500);
+        });
+    </script>
+}
